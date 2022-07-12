@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import json
 from .models import *
+from django.core import serializers
 
 # Create your views here.
 def store(request):
@@ -62,3 +63,15 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse('Item was added', safe=False)
+
+
+def dashboard(request):
+  return render(request, 'store/dashboard.html',{
+
+  })
+
+#method that sends the response with data
+def send_dashboard(request):
+    dataset = models.objects.all()\
+    #data = serializers.serialize('json', dataset)
+    return JsonResponse(data, safe=False)
