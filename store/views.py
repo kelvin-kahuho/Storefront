@@ -15,6 +15,12 @@ def store(request):
     "data": data
   })
 
+def product(request, product_id):
+  product = Product.objects.get(pk=product_id)
+  return render(request, 'store/product.html', {
+    "product": product
+  })
+
 def cart(request):
   if request.user.is_authenticated:
       customer = request.user.customer
@@ -41,7 +47,7 @@ def checkout(request):
 
 def updateItem(request):
     
-    data = json.loads(request.body)
+    data = json.loads(request.data)
     productId = data['productId']
     action = data['action']
     print('Action:', action)

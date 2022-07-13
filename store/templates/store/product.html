@@ -1,0 +1,24 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<h1><strong>{{product.name}}</strong></h1>
+<img src="{{product.imageURL}}" style = "position: left; width: 600px; height: 700px;">
+<div class="box-element product">
+  <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+  <h4 style="display: inline-block; float:none"><strong>Ksh{{product.price| floatformat:2}}</strong></h4>
+
+</div>
+
+<h2 style=" font-family: sans-serif; text-align: left; color:rgb(18, 98, 123); size: 5px; width: 1000px;">
+  Product Description
+</h2>
+<p>{{product.description}}</p>
+<h6>{{product.gender}}</h6>
+
+
+<br>
+
+<h1 style="text-align: center; color:azure; background-color:black; width:fit-content;">Recommendations</h1>
+
+
+{% endblock content %}
