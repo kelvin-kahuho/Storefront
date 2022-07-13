@@ -11,7 +11,8 @@ from django.core import serializers
 def store(request):
   products = Product.objects.all()
   return render(request, 'store/store.html',{
-    "products": products
+    "products": products,
+    "data": data
   })
 
 def cart(request):
@@ -66,12 +67,13 @@ def updateItem(request):
 
 
 def dashboard(request):
+
   return render(request, 'store/dashboard.html',{
 
   })
 
 #method that sends the response with data
-def send_dashboard(request):
-    dataset = models.objects.all()\
-    #data = serializers.serialize('json', dataset)
+def data(request):
+    dataset = models.objects.all()
+    data = serializers.serialize('json', dataset)
     return JsonResponse(data, safe=False)

@@ -1,22 +1,28 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+
+  <img src="https://images.unsplash.com/photo-1520256862855-398228c41684?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80" alt="Nike AirForce shoe" style="height: 500px; width: 1000px; position: relative;">
+  <p style="text-align: center; size:20px; font-family:Time; color:white; background-color:black; width: 1000px;">Get 50% off your first purchase. use code 50%OFF</p>
+	<h1 style="text-align: center; size:20px; font-family:Time; color:white; background-color:black;">SHOP WITH US TODAY!</h1>
+<br>
+<h2 style=" font-family: sans-serif; text-align: left; color:rgb(18, 98, 123); size: 5px; width: 1000px;">Our Products</h2>
 	<div class="row">
-		{% for product in products %}
-		<div class="col-lg-4">
-			<img class="thumbnail" src="{{product.imageURL}}">
-			<div class="box-element product">
-				<h6><strong>{{product.name}}</strong></h6>
-				<hr>
+			{% for product in products %}
+			<div class="col-lg-4">
+				<img class="thumbnail" src="{{product.imageURL}}">
+				<div class="box-element product">
+					<h6><strong>{{product.name}}</strong></h6>
+					<hr>
 
-				<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-				
-				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display: inline-block; float:none"><strong>Ksh{{product.price| floatformat:2}}</strong></h4>
+					<button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+					
+					<a class="btn btn-outline-success" href="#">View</a>
+					<h4 style="display: inline-block; float:none"><strong>Ksh{{product.price| floatformat:2}}</strong></h4>
 
+				</div>
 			</div>
-		</div>
-		{% endfor %}
+			{% endfor %}
 	</div>
 
 {% endblock content %}
