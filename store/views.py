@@ -1,11 +1,12 @@
 from argparse import Action
 from itertools import product
-from venv import create
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
 from .models import *
 from django.core import serializers
+from .utils import cookieCart, cartData, guestOrder
+
 
 # Create your views here.
 def store(request):
