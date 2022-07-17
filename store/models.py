@@ -20,6 +20,7 @@ class Product(models.Model):
 	description = models.CharField(max_length=1000, null=True, blank=True)
 	gender = models.CharField(max_length=6, null=True, blank=True)
 	Stock_status = models.IntegerField(null=True, blank=True)
+	rating = models.IntegerField(null=True, blank=True)
 
 	def __str__(self):
 		return self.name
