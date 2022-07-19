@@ -3,8 +3,8 @@ var updateBtns = document.getElementsByClassName('update-cart')
 
 for ( var i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function(){
-			var productId = this.data.product
-			var action = this.data.action
+			var productId = this.dataset.product
+			var action = this.dataset.action
 			console.log('productId:', productId, 'action:', action)
 
 			console.log('USER:', user)
@@ -31,12 +31,12 @@ function updateUserOrder(productId, action){
 				body:JSON.stringify({'productId':productId, 'action':action})
 		})
 
-		.then((response) => {
-				return response.json()
-		})
-		.then((data) => {
-				location.reload()
-		});
+			.then((response) => {
+					return response.json();
+			})
+			.then((data) => {
+					location.reload()
+			});
 	}
 
 	function addCookieItem(productId, action){
