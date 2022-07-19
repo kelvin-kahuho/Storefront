@@ -7,48 +7,80 @@ from .utils import cookieCart, cartData, guestOrder
 
 
 # Create your views here.
+def home(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+    products = Product.objects.all()
+    return render(request, 'store/home.html', {
+        "products": products,
+        "data": data
+    })
+
 def store(request):
-  products = Product.objects.all()
-  return render(request, 'store/store.html',{
-    "products": products,
-    "data": data
-  })
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+    products = Product.objects.all()
+    return render(request, 'store/store.html', {
+        "products": products,
+        "data": data
+    })
+
 
 def product(request, product_id):
-  product = Product.objects.get(pk=product_id)
-  return render(request, 'store/product.html', {
-    "product": product
-  })
+    product = Product.objects.get(pk=product_id)
+    return render(request, 'store/product.html', {
+        "product": product
+    })
+
 
 def cart(request):
-  if request.user.is_authenticated:
-      customer = request.user.customer
-      order, created = Order.objects.get_or_create(customer=customer, complete=False)
-      items = order.orderitem_set.all()
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
 
-  else:
-      items=[]
-      order = {'get_cart_total':0, 'get_cart_items':0}
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
 
-  context = {'items':items, 'order':order}
-  return render(request, 'store/cart.html', context)
+    context = {'items': items, 'order': order}
+    return render(request, 'store/cart.html', context)
+
 
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
         items = order.orderitem_set.all()
-  
-        
-    else:
-        items=[]
-        order = {'get_cart_total':0, 'get_cart_items':0}
 
-    context = {'items':items, 'order':order}
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+    context = {'items': items, 'order': order}
     return render(request, 'store/checkout.html', context)
 
+
 def updateItem(request):
-    
+
     data = json.loads(request.data)
     productId = data['productId']
     action = data['action']
@@ -57,15 +89,17 @@ def updateItem(request):
 
     customer = request.user.customer
     product = Product.objects.get(id=productId)
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    order, created = Order.objects.get_or_create(
+        customer=customer, complete=False)
 
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+    orderItem, created = OrderItem.objects.get_or_create(
+        order=order, product=product)
 
     if action == 'add':
         orderItem.quantity = (orderItem.quantity + 1)
     elif action == 'remove':
         orderItem.quantity = (orderItem.quantity - 1)
-    
+
     orderItem.save()
 
     if orderItem.quantity <= 0:
@@ -75,13 +109,15 @@ def updateItem(request):
 
 
 def dashboard(request):
-    
-    return render(request, 'store/dashboard.html',{
-      "data" : data
 
-  })
+    return render(request, 'store/dashboard.html', {
+        "data": data
 
-#method that sends the response with data
+    })
+
+# method that sends the response with data
+
+
 def data(request):
     dataset = models.objects.all()
     data = serializers.serialize('json', dataset)

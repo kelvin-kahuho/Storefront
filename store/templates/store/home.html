@@ -1,6 +1,12 @@
 {% extends 'store/main.html' %}
-
+{% load static %}
 {% block content %}
+
+<div>
+		<h1 style="text-align: center; size:20px; font-family:Time; color:white; background-color:black; width: 1000px;">SHOP ONLINE TODAY!</h1>
+		<p style="text-align: center; size:20px; font-family:Time; color:rgb(0, 0, 0);">Get 50% off your first purchase. use code 50%OFF</p>
+</div>
+<br>
 <h2 style=" font-family: sans-serif; text-align: left; color:rgb(18, 98, 123); size: 5px; width: 1000px;">Our Products</h2>
 	<div class="row">
 			{% for product in products %}
