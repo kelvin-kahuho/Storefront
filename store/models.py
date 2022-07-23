@@ -33,6 +33,7 @@ class Product(models.Model):
 			url = ''
 		return url
 
+  
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
@@ -85,3 +86,6 @@ class ShippingAddress(models.Model):
 
 	def __str__(self):
 		return self.address
+
+
+#class ProductRating(models.Model):

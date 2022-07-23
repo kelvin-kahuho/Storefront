@@ -8,6 +8,9 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+	<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
 	<!-- The script below is used to link JS file to the pages that inherit from Main.html -->
@@ -61,15 +64,19 @@
 		}
 		console.log('Cart:', cart)
 
-
-		var login = document.getElementsByClassName('login').innerHTML
-
-		if (user === 'AnonymousUser'){
-				login = 'login';
-		}else{
-				login = 'logout';
+		document.addEventListener('DOMContentLoaded', function() {
+			const log_in = document.querySelector('.login').innerHTML;
+			if (user === 'AnonymousUser'){
+				log_in.innerHTML = 'Login';
+		}else {
+				log_in.innerHTML = 'logout';
 			}
+
+		});	
+		
+		
 	
+
 	</script>
 
 </head>
@@ -89,7 +96,7 @@
 		
 				</ul>
 				<div class="form-inline my-2 my-lg-0">
-					<a href="{% url 'store' %}" class="btn btn-warning login"></a>
+					<a href=# class="btn btn-warning login">Login</a>
 					
 					<a href="{% url 'cart' %}">
 						<img  id="cart-icon" src="{% static 'cart.png' %}">
