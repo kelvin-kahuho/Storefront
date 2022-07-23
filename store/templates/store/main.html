@@ -65,7 +65,9 @@
 		console.log('Cart:', cart)
 
 		document.addEventListener('DOMContentLoaded', function() {
-			const log_in = document.querySelector('.login').innerHTML;
+			let log_in = document.querySelector('.login');
+			console.log(log_in)
+			console.log(user)
 			if (user === 'AnonymousUser'){
 				log_in.innerHTML = 'Login';
 		}else {

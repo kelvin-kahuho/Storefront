@@ -30,6 +30,7 @@ function updateUserOrder(productId, action){
 				}, 
 				body:JSON.stringify({'productId':productId, 'action':action})
 		})
+			
 
 			.then((response) => {
 					return response.json();
@@ -37,7 +38,10 @@ function updateUserOrder(productId, action){
 			.then((data) => {
 					console.log('data:', data)
 					location.reload()
-			});
+			})
+			.catch((error)=> {
+					console.log('error', error)
+			})
 	}
 
 	function addCookieItem(productId, action){

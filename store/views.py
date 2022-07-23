@@ -11,7 +11,7 @@ def home(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(
-            customer=customer, complete=False)
+        customer=customer, complete=False)
         items = order.orderitem_set.all()
 
     else:
@@ -80,8 +80,9 @@ def checkout(request):
 
 
 def updateItem(request):
-
-    data = json.loads(request.data)
+    print(request)
+    data = json.loads(request.body)
+    print(data)
     productId = data['productId']
     action = data['action']
     print('Action:', action)
