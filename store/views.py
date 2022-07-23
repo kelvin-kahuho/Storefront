@@ -8,6 +8,62 @@ from .utils import cookieCart, cartData, guestOrder
 
 # Create your views here.
 def home(request):
+    
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+    products = Product.objects.all()
+    cartItems = items.count()
+    return render(request, 'store/home.html', {
+        "products": products,
+        "data": data,
+        "cartItems": cartItems
+    })
+
+def store(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+    products = Product.objects.all()
+    cartItems = items.count()
+    return render(request, 'store/store.html', {
+        "products": products,
+        "data": data,
+        "cartItems": cartItems
+    })
+
+
+def product(request, product_id):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+    product = Product.objects.get(pk=product_id)
+    cartItems = items.count()
+    return render(request, 'store/product.html', {
+        "product": product,
+        "cartItems": cartItems
+    })
+
+
+def cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(
@@ -17,50 +73,8 @@ def home(request):
     else:
         items = []
         order = {'get_cart_total': 0, 'get_cart_items': 0}
-
-    products = Product.objects.all()
-    return render(request, 'store/home.html', {
-        "products": products,
-        "data": data
-    })
-
-def store(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(
-            customer=customer, complete=False)
-        items = order.orderitem_set.all()
-
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_items': 0}
-
-    products = Product.objects.all()
-    return render(request, 'store/store.html', {
-        "products": products,
-        "data": data
-    })
-
-
-def product(request, product_id):
-    product = Product.objects.get(pk=product_id)
-    return render(request, 'store/product.html', {
-        "product": product
-    })
-
-
-def cart(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(
-            customer=customer, complete=False)
-        items = order.orderitem_set.all()
-
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_items': 0}
-
-    context = {'items': items, 'order': order}
+    cartItems = items.count()
+    context = {'items': items, 'order': order, "cartItems": cartItems}
     return render(request, 'store/cart.html', context)
 
 
@@ -90,11 +104,9 @@ def updateItem(request):
 
     customer = request.user.customer
     product = Product.objects.get(id=productId)
-    order, created = Order.objects.get_or_create(
-        customer=customer, complete=False)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
-    orderItem, created = OrderItem.objects.get_or_create(
-        order=order, product=product)
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 
     if action == 'add':
         orderItem.quantity = (orderItem.quantity + 1)
@@ -121,5 +133,6 @@ def dashboard(request):
 
 def data(request):
     dataset = models.objects.all()
+    print(dataset)
     data = serializers.serialize('json', dataset)
     return JsonResponse(request, data, safe=False)

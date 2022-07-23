@@ -9,10 +9,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.flexmonster.com/demo.css">
     <script>
-    console.log('Start')
-    function processData(dataset) {
+    console.log(data)
+
+    function processData(data) {
     var result = []
-    dataset = JSON.parse(dataset);
+    dataset = JSON.parse(data);
     dataset.forEach(item => result.push(item.fields));
     return result;
     }
