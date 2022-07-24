@@ -11,6 +11,10 @@ class Customer(models.Model):
 	def __str__(self):
 		return self.name
 
+	def __str__(self):
+  		return self.user
+
+
 
 class Product(models.Model):
 	name = models.CharField(max_length=200)
@@ -89,3 +93,14 @@ class ShippingAddress(models.Model):
 
 
 #class ProductRating(models.Model):
+"""""
+class ProductRating(models.Model):
+  UserId = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	ProductId = Product.objects.get(pk=product_id)
+	Rating = models.IntegerField(null=True, blank=True)
+
+	@property
+	def get_average_rating(self):
+  		average_rating = ProductRating.ProductId.objects.all().sum() // ProductRating.Rating.objects.all().sum()
+			return average_rating
+"""

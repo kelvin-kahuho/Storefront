@@ -69,3 +69,5 @@ function updateUserOrder(productId, action){
 
 		location.reload()
 		}
+
+f//unction updateProductRatind
