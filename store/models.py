@@ -91,16 +91,11 @@ class ShippingAddress(models.Model):
 	def __str__(self):
 		return self.address
 
-
-#class ProductRating(models.Model):
-"""""
 class ProductRating(models.Model):
-  UserId = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-	ProductId = Product.objects.get(pk=product_id)
-	Rating = models.IntegerField(null=True, blank=True)
+	User = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	Product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+	Rating = models.IntegerField(default=0)
 
-	@property
-	def get_average_rating(self):
-  		average_rating = ProductRating.ProductId.objects.all().sum() // ProductRating.Rating.objects.all().sum()
-			return average_rating
-"""
+	def __str__(self):
+  		return self.id
+
