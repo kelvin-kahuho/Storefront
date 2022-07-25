@@ -10,4 +10,4 @@ admin.site.register(ShippingAddress)
 
 @admin.register(ProductRating)
 class ProductRatingAdmin(admin.ModelAdmin):
-  list_display = ['id','User', 'Product','Rating']
+  list_display = ('get_users','Product','Rating')
