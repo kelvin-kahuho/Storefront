@@ -7,4 +7,7 @@ admin.site.register(Product)
 admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(ShippingAddress)
-admin.site.register(ProductRating)
+
+@admin.register(ProductRating)
+class ProductRatingAdmin(admin.ModelAdmin):
+  list_display = ['id','User', 'Product','Rating']

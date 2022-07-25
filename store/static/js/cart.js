@@ -70,4 +70,42 @@ function updateUserOrder(productId, action){
 		location.reload()
 		}
 
-f//unction updateProductRatind
+//function updateProductRating
+//getting all html elemnets but filtering ones with class update-cart
+var updateRating = document.getElementsByClassName('rating')
+
+for ( var i = 0; i < updateRating.length; i++) {
+	updateRating[i].addEventListener('click', function(){
+			var productId = this.dataset.product
+			var rating = this.dataset.value
+			console.log('productId:', productId, 'rating:', rating)
+
+			console.log('USER:', user)
+	})
+}
+
+function updateProductRating(productId, rating){
+	var url = '/productrating/'
+
+	fetch(url, {
+
+	method:'POST',
+	headers:{
+		'Content-Type':'application/json',
+		'X-CSRFToken':csrftoken,
+	}, 
+	body1:JSON.stringify({'productId':productId, 'rating':rating})
+})
+			
+
+		.then((response) => {
+				return response.json();
+		})
+		.then((data) => {
+				console.log('data:', data)
+				location.reload()
+		})
+		.catch((error)=> {
+				console.log('error', error)
+		})
+	}

@@ -24,7 +24,7 @@ class Product(models.Model):
 	description = models.CharField(max_length=1000, null=True, blank=True)
 	gender = models.CharField(max_length=6, null=True, blank=True)
 	Stock_status = models.IntegerField(null=True, blank=True)
-	rating = models.IntegerField(null=True, blank=True)
+
 
 	def __str__(self):
 		return self.name
@@ -69,7 +69,7 @@ class Order(models.Model):
 		return total 
 
 class OrderItem(models.Model):
-	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
 	quantity = models.IntegerField(default=0, null=True, blank=True)
 	date_added = models.DateTimeField(auto_now_add=True)
@@ -92,10 +92,13 @@ class ShippingAddress(models.Model):
 		return self.address
 
 class ProductRating(models.Model):
-	User = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	User = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
 	Product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 	Rating = models.IntegerField(default=0)
 
+	
 	def __str__(self):
-  		return self.id
+			return str(self)
+
+
 

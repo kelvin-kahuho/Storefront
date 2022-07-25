@@ -120,6 +120,23 @@ def updateItem(request):
 
     return JsonResponse('Item was added', safe=False)
 
+def product_rating(request):
+    print(request)
+    data = json.loads(request.body1)
+    print(data)
+    user = request.user.customer
+    productId = Product.objects.get(id=productId)
+    rating = data['rating']
+    print('rating:', rating)
+    print('Product:', productId)
+
+    productRating, created = ProductRating.objects.get_or_create(User=user, Product=productId, Rating=rating)
+    productRating.save()
+    return JsonResponse('Rating was added', safe=False)
+
+    
+    
+
 
 def dashboard(request):
 
