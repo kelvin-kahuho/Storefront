@@ -2,6 +2,7 @@ from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class Customer(models.Model):
@@ -102,8 +103,6 @@ class ProductRating(models.Model):
 	def __str__(self):
 			return str(self.id)
 
-	def get_users(self):
-  		return [u.User for u in self.User.all()]
 
 
 
