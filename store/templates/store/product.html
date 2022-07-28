@@ -16,14 +16,13 @@
 <h6>{{product.gender}}</h6>
 <br>
 <h2>Rate this Product</h2>
-<button data-product={{product.id}} data-value=1 class="fa fa-star {% if product_rating.rating > 0 %} checked {% endif %} rating"></button>
-<button data-product={{product.id}} data-value=2 class="fa fa-star {% if product_rating.rating > 1 %} checked {% endif %} rating"></button>
-<button data-product={{product.id}} data-value=3 class="fa fa-star {% if product_rating.rating > 2 %} checked {% endif %} rating"></button>
-<button data-product={{product.id}} data-value=3 class="fa fa-star {% if product_rating.rating > 3 %} checked {% endif %} rating"></button>
-<button data-product={{product.id}} data-value=5 class="fa fa-star {% if product_rating.rating > 4 %} checked {% endif %} rating"></button>
-</form>
-
-
+<div class="stars">
+<button data-product={{product.id}} data-value=1 class="fa fa-star checked rating"></button>
+<button data-product={{product.id}} data-value=2 class="fa fa-star checked rating"></button>
+<button data-product={{product.id}} data-value=3 class="fa fa-star checked rating"></button>
+<button data-product={{product.id}} data-value=4 class="fa fa-star checked rating"></button>
+<button data-product={{product.id}} data-value=5 class="fa fa-star checked rating"></button>
+</div>
 <br>
 <br>
 <br>

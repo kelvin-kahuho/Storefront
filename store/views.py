@@ -120,13 +120,14 @@ def updateItem(request):
 
 def product_rating(request):
     print(request)
-    data = json.loads(request.body1)
+    data = json.loads(request.body)
     print(data)
-    user = request.user.customer
-    productId = Product.objects.get(id=productId)
+    productId = data['productId']
     rating = data['rating']
     print('rating:', rating)
     print('Product:', productId)
+    user = request.body.user.customer
+    productId = Product.objects.get(id=productId)
 
     productRating, created = ProductRating.objects.get_or_create(User=user, Product=productId, Rating=rating)
     productRating.save()

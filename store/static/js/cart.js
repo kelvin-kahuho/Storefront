@@ -71,30 +71,33 @@ function updateUserOrder(productId, action){
 		}
 
 //function updateProductRating
-//getting all html elemnets but filtering ones with class update-cart
+//getting all html elemnets but filtering ones with class rating
 var updateRating = document.getElementsByClassName('rating')
-
-for ( var i = 0; i < updateRating.length; i++) {
+console.log(updateRating)
+for ( var i = 0; i < updateRating.length; i++){
 	updateRating[i].addEventListener('click', function(){
-			var productId = this.dataset.product
-			var rating = this.dataset.value
-			console.log('productId:', productId, 'rating:', rating)
+		console.log(updateRating[i])
+		var productId = this.dataset.product
+		var rating = this.dataset.value
+		console.log('productId:', productId, 'rating:', rating)
 
-			console.log('USER:', user)
-	})
+		console.log('USER:', user)
+		updateProductRating(productId,rating)
+})
 }
 
+
 function updateProductRating(productId, rating){
-	var url = '/productrating/'
+	console.log(user, productId, rating)
+	var url = '/product_rating/'
 
 	fetch(url, {
 
 	method:'POST',
 	headers:{
 		'Content-Type':'application/json',
-		'X-CSRFToken':csrftoken,
 	}, 
-	body1:JSON.stringify({'productId':productId, 'rating':rating})
+	body:JSON.stringify({'user':user,'productId':productId, 'rating':rating})
 })
 			
 
@@ -197,8 +200,3 @@ document.addEventListener('DOMContentLoaded', function() {
 		dashboard.style.visibility = "Hidded"
 	}
 })
-if (user === 'kelvin'){
-	d
-}else{
-	updateUserOrder(productId, action)
-}
