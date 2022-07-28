@@ -109,3 +109,96 @@ function updateProductRating(productId, rating){
 				console.log('error', error)
 		})
 	}
+
+
+	function processData(data) {
+	var result = []
+	dataset = JSON.parse(data);
+	console.log(dataset)
+	dataset.forEach(item => result.push(item.fields));
+	return result;
+	}
+
+			$.ajax({
+			url: $("#pivot-table-container").attr("send_data/"),
+			dataType: 'json',
+			success: function(data) {
+					new Flexmonster({
+							container: "#pivot-table-container",
+							componentFolder: "https://cdn.flexmonster.com/",
+							width: "100%",
+							height: 430,
+							toolbar: true,
+							report: {
+									dataSource: {
+											type: "json",
+											data: processData(data),
+											mapping: {
+											"Customer": {
+													"caption": "Customer",
+													"type": "model"
+											},
+											"Product": {
+													"caption": "Products",
+													"type": "model"
+											},
+											"Order": {
+													"caption": "Order",
+													"type": "model"
+											},
+									},
+									},
+									slice: {}
+							}
+					});
+					new Flexmonster({
+							container: "#pivot-chart-container",
+							componentFolder: "https://cdn.flexmonster.com/",
+							width: "100%",
+							height: 430,
+							//toolbar: true,
+							report: {
+									dataSource: {
+											type: "json",
+											data: processData(data),
+											mapping: {
+											"Customer": {
+													"caption": "Customer",
+													"type": "model"
+											},
+											"Product": {
+													"caption": "Products",
+													"type": "model"
+											},
+											"Order": {
+													"caption": "Order",
+													"type": "model"
+											},
+									},
+									},
+									
+									slice: {},
+									"options": {
+											"viewType": "charts",
+											"chart": {
+													"type": "pie"
+											}
+									}
+							}
+					});
+			}
+	});
+//diplaying dashboard if the user is Kelvin
+document.addEventListener('DOMContentLoaded', function() {
+	let dashboard = document.querySelector('.dashboard');
+	if (user === 'Kelvin'){
+		dashboard.style.visibility = "visible"
+	}else{
+		dashboard.style.visibility = "Hidded"
+	}
+})
+if (user === 'kelvin'){
+	d
+}else{
+	updateUserOrder(productId, action)
+}

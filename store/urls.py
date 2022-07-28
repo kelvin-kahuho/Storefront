@@ -17,7 +17,7 @@ urlpatterns = [
   path("update_item/", views.updateItem, name="update_item"),
   path("dashboard/", views.dashboard, name="dashboard"),
   path("productrating/", views.product_rating, name="rating"),
-  path("data/", views.data, name="data"),
+  path("send_data/", views.send_data, name="data"),
 
   #path("login/", views.login, name="login"),
   #path("logout/", views.logout, name="logout"),

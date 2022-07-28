@@ -22,7 +22,6 @@ def home(request):
     cartItems = items.count()
     return render(request, 'store/home.html', {
         "products": products,
-        "data": data,
         "cartItems": cartItems
     })
 
@@ -40,7 +39,6 @@ def store(request):
     cartItems = items.count()
     return render(request, 'store/store.html', {
         "products": products,
-        "data": data,
         "cartItems": cartItems
     })
 
@@ -141,15 +139,15 @@ def product_rating(request):
 def dashboard(request):
 
     return render(request, 'store/dashboard.html', {
-        "data": data
+        "data": send_data
 
     })
 
 # method that sends the response with data
 
 
-def data(request):
-    dataset = models.objects.all()
+def send_data(request):
+    dataset = ProductRating.objects.all()
     print(dataset)
     data = serializers.serialize('json', dataset)
     return JsonResponse(request, data, safe=False)

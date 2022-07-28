@@ -64,20 +64,18 @@
 		}
 		console.log('Cart:', cart)
 
-		document.addEventListener('DOMContentLoaded', function() {
-			let log_in = document.querySelector('.login');
-			console.log(log_in)
-			console.log(user)
-			if (user === 'AnonymousUser'){
-				log_in.innerHTML = 'Login';
-		}else {
-				log_in.innerHTML = 'logout';
-			}
+		//Changing log-out button to log-in when a user logs out and vice versa
+document.addEventListener('DOMContentLoaded', function() {
+	let log_in = document.querySelector('.login');
+	console.log(log_in)
+	console.log(user)
+	if (user === 'AnonymousUser'){
+		log_in.innerHTML = 'Login';
+}else {
+		log_in.innerHTML = 'logout';
+	}
 
-		});	
-		
-		
-	
+});	 
 
 	</script>
 
@@ -85,17 +83,17 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="{% url 'home' %}">Storefront</a>
+		<a style="font-size: 50px;" class="navbar-brand" href="{% url 'home' %}">Storefront</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
-					</li>
-		
+						<a class="nav-link nav-item active" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
+						<a class="nav-link dashboard nav-item active" href="{% url 'dashboard' %}">Dashboard</a>
+						<a class="nav-link nav-item active" href=# >Abous Us</a>
+					
 				</ul>
 				<div class="form-inline my-2 my-lg-0">
 					<a href="http://127.0.0.1:8000/admin/logout/" class="btn btn-warning login">Login</a>
