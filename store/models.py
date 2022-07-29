@@ -1,3 +1,4 @@
+from ast import Str
 from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
@@ -95,13 +96,17 @@ class ShippingAddress(models.Model):
 		return self.address
 
 class ProductRating(models.Model):
-	User = models.ManyToManyField(User)
-	Product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-	Rating = models.IntegerField(default=0)
-
+	user = models.ManyToManyField('Customer', blank=True)
+	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+	rating = models.IntegerField(default=0)
 	
+
 	def __str__(self):
-			return str(self.id)
+  		return str(self.user)
+
+	def get_users(self):
+  		return "\n".join([u.user for u in self.user.all()])
+
 
 
 
