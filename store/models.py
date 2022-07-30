@@ -96,7 +96,7 @@ class ShippingAddress(models.Model):
 		return self.address
 
 class ProductRating(models.Model):
-	user = models.ManyToManyField('Customer', blank=True)
+	user = models.ManyToManyField('Customer')
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 	rating = models.IntegerField(default=0)
 	
