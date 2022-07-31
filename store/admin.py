@@ -21,4 +21,4 @@ admin.site.register(ShippingAddress)
 
 @admin.register(ProductRating)
 class ProductRatingAdmin(admin.ModelAdmin):
-    list_display = ['get_users', 'product', 'rating']
+    list_display = ['user', 'product', 'rating']

@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
 <div class="login">
-  <form method="post">
-    <label>Username:</label>
+  <form method="post">{% csrf_token %}
+    <label>username:</label>
     <input type="text" name="username">
     <br>
     <br>
-    <label>Password:</label>
+    <label>password:</label>
     <input type="password" name="password">
     <br>
     <br>

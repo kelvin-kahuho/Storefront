@@ -4,6 +4,8 @@ import json
 from .models import *
 from django.core import serializers
 from .utils import cookieCart, cartData, guestOrder
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -19,7 +21,12 @@ def home(request):
         order = {'get_cart_total': 0, 'get_cart_items': 0}
 
     products = Product.objects.all()
-    cartItems = items.count()
+
+    if request.user.is_authenticated:
+        cartItems = items.count()
+    else:
+        cartItems = 0
+
     return render(request, 'store/home.html', {
         "products": products,
         "cartItems": cartItems
@@ -36,7 +43,12 @@ def store(request):
         order = {'get_cart_total': 0, 'get_cart_items': 0}
 
     products = Product.objects.all()
-    cartItems = items.count()
+
+    if request.user.is_authenticated:
+        cartItems = items.count()
+    else:
+        cartItems = 0
+
     return render(request, 'store/store.html', {
         "products": products,
         "cartItems": cartItems
@@ -54,7 +66,12 @@ def product(request, product_id):
         order = {'get_cart_total': 0, 'get_cart_items': 0}
 
     product = Product.objects.get(pk=product_id)
-    cartItems = items.count()
+
+    if request.user.is_authenticated:
+        cartItems = items.count()
+    else:
+        cartItems = 0
+
     return render(request, 'store/product.html', {
         "product": product,
         "cartItems": cartItems
@@ -71,7 +88,12 @@ def cart(request):
     else:
         items = []
         order = {'get_cart_total': 0, 'get_cart_items': 0}
-    cartItems = items.count()
+
+    if request.user.is_authenticated:
+        cartItems = items.count()
+    else:
+        cartItems = 0
+        
     context = {'items': items, 'order': order, "cartItems": cartItems}
     return render(request, 'store/cart.html', context)
 
@@ -133,10 +155,21 @@ def product_rating(request):
     productRating.save()
     return JsonResponse('Rating was added', safe=False)
 
-def login(request):
-    return render(request, 'store/login.html')    
-    
+def loginUser(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return render(request, 'store/home.html')
+    else:
+        return render(request, 'store/login.html')
+        
 
+def logoutUser(request):
+    logout(request)
+    return HttpResponseRedirect('login')
 
 def dashboard(request):
 

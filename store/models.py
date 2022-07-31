@@ -49,16 +49,7 @@ class Order(models.Model):
 
 	def __str__(self):
 		return str(self.id)
-		
-	@property
-	def shipping(self):
-		shipping = False
-		orderitems = self.orderitem_set.all()
-		for i in orderitems:
-			if i.product.digital == False:
-				shipping = True
-		return shipping
-
+	
 	@property
 	def get_cart_total(self):
 		orderitems = self.orderitem_set.all()
@@ -95,16 +86,13 @@ class ShippingAddress(models.Model):
 		return self.address
 
 class ProductRating(models.Model):
-	user = models.ManyToManyField('Customer')
+	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 	rating = models.IntegerField(default=0)
 	
 
 	def __str__(self):
-  		return str(self)
-
-	def get_users(self):
-  		return "\n".join([u.user for u in self.user.all()])
+  		return str(self.id)
 
 
 
