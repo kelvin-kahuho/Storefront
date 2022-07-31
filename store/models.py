@@ -23,11 +23,10 @@ class Customer(models.Model):
 class Product(models.Model):
 	name = models.CharField(max_length=200)
 	price = models.FloatField()
-	digital = models.BooleanField(default=False,null=True, blank=True)
 	image = models.ImageField(null=True, blank=True)
 	description = models.CharField(max_length=1000, null=True, blank=True)
 	gender = models.CharField(max_length=6, null=True, blank=True)
-	Stock_status = models.IntegerField(null=True, blank=True)
+	stock_status = models.IntegerField(null=True, blank=True)
 
 
 	def __str__(self):
@@ -102,7 +101,7 @@ class ProductRating(models.Model):
 	
 
 	def __str__(self):
-  		return str(self.user)
+  		return str(self)
 
 	def get_users(self):
   		return "\n".join([u.user for u in self.user.all()])

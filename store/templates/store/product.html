@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <h1><strong>{{product.name}}</strong></h1>
-<img src="{{product.imageURL}}" style = "position: left; width: 600px; height: 700px;">
+<img src="{{product.imageURL}}" style = "position: left; width: 700px; height: 500px;">
 <div class="box-element product">
   <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
   <h4 style="display: inline-block; float:none"><strong>Ksh{{product.price| floatformat:2}}</strong></h4>

@@ -7,7 +7,13 @@ from .models import *
 @admin.register(Customer)
 class customerAdmin(admin.ModelAdmin):
     list_display = ['user', 'name','email']
-admin.site.register(Product)
+
+#admin.site.register(Product)
+@admin.register(Product)
+class productAdmin(admin.ModelAdmin):
+    list_display = ['name','price','gender','stock_status']
+
+
 admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(ShippingAddress)

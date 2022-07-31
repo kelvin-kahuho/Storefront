@@ -133,7 +133,8 @@ def product_rating(request):
     productRating.save()
     return JsonResponse('Rating was added', safe=False)
 
-    
+def login(request):
+    return render(request, 'store/login.html')    
     
 
 
