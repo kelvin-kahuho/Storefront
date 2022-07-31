@@ -71,9 +71,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	console.log(user)
 	if (user === 'AnonymousUser'){
 		log_in.innerHTML = 'Login';
+		log_in.href = "http://127.0.0.1:8000/login/";
 }else {
 		log_in.innerHTML = 'logout';
+		log_in.href = "http://127.0.0.1:8000/logout/";
 	}
+
 
 });	 
 
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					
 				</ul>
 				<div class="form-inline my-2 my-lg-0">
-					<a class="btn btn-warning login">Login</a>
+					<a href="{% url 'login' %}" class="btn btn-warning login">Login</a>
 					
 					<a href="{% url 'cart' %}">
 						<img  id="cart-icon" src="{% static 'cart.png' %}">
@@ -109,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <div class="container">
             <br>
+						
             {% block content %}
 
 

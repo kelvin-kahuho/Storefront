@@ -1,3 +1,4 @@
+from audioop import reverse
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
@@ -6,6 +7,7 @@ from django.core import serializers
 from .utils import cookieCart, cartData, guestOrder
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 
 # Create your views here.
@@ -163,13 +165,18 @@ def loginUser(request):
         if user is not None:
             login(request, user)
             return render(request, 'store/home.html')
+        else:
+            messages.error(request, 'Username or password not correct')
+            return render(request, 'store/login.html')
+        
     else:
         return render(request, 'store/login.html')
-        
+def signupUser(request):
+    return render(request, 'store/signup.html')
 
 def logoutUser(request):
     logout(request)
-    return HttpResponseRedirect('login')
+    return render(request, 'store/login.html')
 
 def dashboard(request):
 
