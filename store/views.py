@@ -164,7 +164,7 @@ def loginUser(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, 'store/home.html')
+            return redirect('home')
         else:
             messages.error(request, 'Username or password not correct')
             return render(request, 'store/login.html')
@@ -176,11 +176,11 @@ def signupUser(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user= form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
-            Customer.objects.create(user=user, name=username, email=user.email)
+            Customer.objects.create(user=user, name=username, email= None)
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(request, username=username, password=raw_password)
             login(request, user)
             return redirect('home')
     else:
@@ -191,7 +191,7 @@ def signupUser(request):
 
 def logoutUser(request):
     logout(request)
-    return render(request, 'store/login.html')
+    return redirect('login')
 
 def dashboard(request):
 
