@@ -14,9 +14,24 @@ class productAdmin(admin.ModelAdmin):
     list_display = ['name','price','gender','stock_status']
 
 
-admin.site.register(Order)
-admin.site.register(OrderItem)
-admin.site.register(ShippingAddress)
+#admin.site.register(Order)
+@admin.register(Order)
+class orderAdmin(admin.ModelAdmin):
+    list_display = ['customer','date_ordered','complete','transaction_id']
+
+
+#admin.site.register(OrderItem)
+@admin.register(OrderItem)
+class orderitemAdmin(admin.ModelAdmin):
+    list_display = ['product','order','quantity','date_added']
+
+
+#admin.site.register(ShippingAddress)
+@admin.register(ShippingAddress)
+class shippingaddressAdmin(admin.ModelAdmin):
+    list_display = ['customer','order','address','city','state','zipcode','date_added']
+
+
 #admin.site.register(ProductRating)
 
 @admin.register(ProductRating)
