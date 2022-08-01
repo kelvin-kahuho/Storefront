@@ -76,44 +76,40 @@ var updateRating = document.getElementsByClassName('rating')
 console.log(updateRating)
 for ( var i = 0; i < updateRating.length; i++){
 	updateRating[i].addEventListener('click', function(){
-		console.log(updateRating[i])
 		var productId = this.dataset.product
 		var rating = this.dataset.value
-		console.log('productId:', productId, 'rating:', rating)
-
-		console.log('USER:', user)
-		updateProductRating(productId,rating)
+		var user = user
+		console.log('user:', user,'productId:', productId, 'rating:', rating)
+		updateProductRating(user,productId,rating)
 })
-}
+};
 
 
-function updateProductRating(productId, rating){
-	console.log(user, productId, rating)
+function updateProductRating(user, productId, rating){
 	var url = '/product_rating/'
 
 	fetch(url, {
+				method:'POST',
+				headers:{
+					'Content-Type':'application/json',
+					'X-CSRFToken':csrftoken,
+				}, 
+				body:JSON.stringify({'user':user,'productId':productId, 'rating':rating})
+			})		
 
-	method:'POST',
-	headers:{
-		'Content-Type':'application/json',
-	}, 
-	body:JSON.stringify({'user':user,'productId':productId, 'rating':rating})
-})
-			
+					.then((response) => {
+							return response.json();
+					})
+					.then((data) => {
+							console.log('data:', data)
+							location.reload()
+					})
+					/*.catch((error)=> {
+							console.log('error', error)
+					})*/
+				};
 
-		.then((response) => {
-				return response.json();
-		})
-		.then((data) => {
-				console.log('data:', data)
-				location.reload()
-		})
-		.catch((error)=> {
-				console.log('error', error)
-		})
-	}
-
-
+/*
 	function processData(data) {
 	var result = []
 	dataset = JSON.parse(data);
@@ -200,3 +196,4 @@ document.addEventListener('DOMContentLoaded', function() {
 		dashboard.style.visibility = "Hidded"
 	}
 })
+*/

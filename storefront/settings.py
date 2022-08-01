@@ -133,3 +133,6 @@ MEDIA_URL = '/images/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#API settings for Read/Write api for accessing information on the users
+

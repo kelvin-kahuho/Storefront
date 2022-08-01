@@ -1,5 +1,5 @@
 from audioop import reverse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
 from .models import *
@@ -8,7 +8,7 @@ from .utils import cookieCart, cartData, guestOrder
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def home(request):
@@ -143,17 +143,17 @@ def updateItem(request):
     return JsonResponse('Item was added', safe=False)
 
 def product_rating(request):
-    print(request)
     data = json.loads(request.body)
     print(data)
+    user = data['user']
     productId = data['productId']
     rating = data['rating']
     print('rating:', rating)
-    print('Product:', productId)
-    user = request.body.user.customer
+    print('ProductId:', productId)
+    user = request.body.user
     productId = Product.objects.get(id=productId)
 
-    productRating, created = ProductRating.objects.get_or_create(User=user, Product=productId, Rating=rating)
+    productRating, created = ProductRating.objects.get_or_create(user=user, Product=productId, rating=rating)
     productRating.save()
     return JsonResponse('Rating was added', safe=False)
 
@@ -171,8 +171,23 @@ def loginUser(request):
         
     else:
         return render(request, 'store/login.html')
+
 def signupUser(request):
-    return render(request, 'store/signup.html')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user= form.save()
+            username = form.cleaned_data.get('username')
+            Customer.objects.create(user=user, name=username, email=user.email)
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'store/signup.html', {
+        'form': form
+        })
 
 def logoutUser(request):
     logout(request)

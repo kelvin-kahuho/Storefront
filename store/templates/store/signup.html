@@ -1,22 +1,17 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-<h2>Signup</h2>
-<br>
-<div class="login">
-  <form method="post">{% csrf_token %}
-    <label>username:</label>
-    <input type="text" name="username">
-    <br>
-    <br>
-    <label>password:</label>
-    <input type="password" name="password">
-    <br>
-    <br>
-    <input type="submit">
+<h2 style="text-align: center;">Signup</h2>
+<form class="site-form" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit" class="btn btn-outline-success">Sign up</button>
+
+</form>
+
+    <p>Have an account? <a style="color: blue;" href="{%url 'login'%}">Sign In</a></p>
   </form>
-
-  <p>Have an account?</p><a style="color: blue;" href="{%url 'login'%}">Log In</a>
-
 </div>
-{% endblock content %}
+
+
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-<h2>Login</h2>
+<h2 style="text-align: center;">Login</h2>
 <br>
 <div class="login">
   <form method="post">{% csrf_token %}
@@ -13,10 +13,9 @@
     <input type="password" name="password">
     <br>
     <br>
-    <input type="submit">
+    <input type="submit" value="Sign in" class="btn btn-outline-success">
+    <br>
+    <p>Don't have and account? <a style="color: blue;" href="{%url 'signup'%}">Sign up</a></p>
   </form>
-
-  <p>Don't have and account?</p><a style="color: blue;" href="{%url 'signup'%}">Sign up</a>
-
 </div>
 {% endblock content %}
