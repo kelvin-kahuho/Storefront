@@ -145,15 +145,14 @@ def updateItem(request):
 def product_rating(request):
     data = json.loads(request.body)
     print(data)
-    user = data['user']
     productId = data['productId']
     rating = data['rating']
     print('rating:', rating)
     print('ProductId:', productId)
-    user = request.body.user
+    user = request.user
     productId = Product.objects.get(id=productId)
 
-    productRating, created = ProductRating.objects.get_or_create(user=user, Product=productId, rating=rating)
+    productRating, created = ProductRating.objects.get_or_create(user=user, product=productId, rating=rating)
     productRating.save()
     return JsonResponse('Rating was added', safe=False)
 
@@ -178,7 +177,7 @@ def signupUser(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            Customer.objects.create(user=user, name=username, email= None)
+            Customer.objects.create(user=user, name=username, email=None)
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(request, username=username, password=raw_password)
             login(request, user)
