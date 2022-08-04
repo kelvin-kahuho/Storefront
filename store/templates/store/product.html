@@ -1,6 +1,7 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+{% load recommends %}
 <h1><strong>{{product.name}}</strong></h1>
 <img src="{{product.imageURL}}" style = "position: left; width: 700px; height: 500px;">
 <div class="box-element product">
@@ -28,6 +29,9 @@
 <br>
 
 <h1 style="text-align: center; color:azure; background-color:black; width:fit-content;">Recommendations</h1>
+{% for similarity in myobj|similar:5 %}
+    {{ similarity.related_object }}
+{% endfor %}
 
 
 {% endblock content %}
