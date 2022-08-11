@@ -16,22 +16,38 @@
 <p>{{product.description}}</p>
 <h6>{{product.gender}}</h6>
 <br>
-<h2>Rate this Product</h2>
+<h4>Rate this Product</h4>
 <div class="stars">
-<button data-product={{product.id}} data-value=1 class="fa fa-star checked rating"></button>
-<button data-product={{product.id}} data-value=2 class="fa fa-star checked rating"></button>
-<button data-product={{product.id}} data-value=3 class="fa fa-star checked rating"></button>
-<button data-product={{product.id}} data-value=4 class="fa fa-star checked rating"></button>
-<button data-product={{product.id}} data-value=5 class="fa fa-star checked rating"></button>
+<button data-product={{product.id}} data-value=1 class="fa fa-star checked rating hidden"></button>
+<button data-product={{product.id}} data-value=2 class="fa fa-star checked rating hidden"></button>
+<button data-product={{product.id}} data-value=3 class="fa fa-star checked rating hidden"></button>
+<button data-product={{product.id}} data-value=4 class="fa fa-star checked rating hidden"></button>
+<button data-product={{product.id}} data-value=5 class="fa fa-star checked rating hidden"></button>
+<h4>Leave us a comment</h4>
+<input type="text" size = "50">
+<input data-product={{product.id}} method= "post" type="submit" class="comment" value="Send"> 
 </div>
 <br>
+
 <br>
 <br>
 
-<h1 style="text-align: center; color:azure; background-color:black; width:fit-content;">Recommendations</h1>
-{% for similarity in myobj|similar:5 %}
-    {{ similarity.related_object }}
-{% endfor %}
+<h4 style="text-align: center; color:rgb(0, 0, 0);">Recommendations</h4>
+<div class="row">
+  {% for product in products %}
+  <div class="col-lg-4">
+    <img class="thumbnail" src="{{product.imageURL}}">
+    <div class="box-element product">
+      <h6><strong>{{product.name}}</strong></h6>
+      <hr>
 
-
+      <button data-product="{{product.id}}"" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+      
+      <a class="btn btn-outline-success" href="{% url 'product' product.id %}">View</a>
+      <h4 style="display: inline-block; float:none"><strong>Ksh{{product.price| floatformat:2}}</strong></h4>
+      <br>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock content %}

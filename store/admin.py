@@ -36,4 +36,4 @@ class shippingaddressAdmin(admin.ModelAdmin):
 
 @admin.register(ProductRating)
 class ProductRatingAdmin(admin.ModelAdmin):
-    list_display = ['user', 'product', 'rating']
+    list_display = ['user', 'product', 'rating', 'created_at', 'comment']

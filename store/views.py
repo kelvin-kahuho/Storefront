@@ -1,4 +1,6 @@
 from audioop import reverse
+from random import random
+from tkinter import N
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
@@ -74,7 +76,13 @@ def product(request, product_id):
     else:
         cartItems = 0
 
+    #Recommendations
+    import random
+    products = Product.objects.all()
+    products = random.choices(products, weights=None, k=3)
+
     return render(request, 'store/product.html', {
+        "products": products,
         "product": product,
         "cartItems": cartItems
     })

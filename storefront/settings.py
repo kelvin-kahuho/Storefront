@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'recommends',
     'recommends.storages.djangoorm',
     'django.contrib.sites',
+    #'oauth2_authentication',
 ]
 
 SITE_ID = 1

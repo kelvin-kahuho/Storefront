@@ -19,6 +19,7 @@ from django.urls import include, path
 
 from django.conf.urls.static import static
 from django.conf import settings
+#from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,8 @@ urlpatterns = [
     #path('newyear/', include("newyear.urls")),
     #path('tasks/', include("tasks.urls")),
     path('', include("store.urls")),
+    #url(r'^oauth2/', include('oauth2_authentication.urls', namespace="oauth2")),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
