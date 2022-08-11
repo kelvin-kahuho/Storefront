@@ -1,6 +1,5 @@
 from audioop import reverse
 from random import random
-from tkinter import N
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
