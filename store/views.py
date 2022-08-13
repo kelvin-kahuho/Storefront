@@ -77,8 +77,8 @@ def product(request, product_id):
 
     #Recommendations
     import random
-    products = Product.objects.all()
-    products = random.choices(products, weights=None, k=3)
+    products = Product.objects.all()[:5]
+    products = random.choices(products, k=4)[:3]
 
     return render(request, 'store/product.html', {
         "products": products,
