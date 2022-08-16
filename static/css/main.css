@@ -104,16 +104,27 @@ h1,h2,h3,h4,h5,h6{
 	display: none!important;
 }
 
-.checked {
-  color: orange;
-	size: 100px;
-	
+.stars {
+	display: flex;
 }
 
 .stars a {
-	opacity: 10%;
+	color: orange;
+	opacity: 70%;
 	cursor: pointer;
+	padding: 5px;
 }
 .stars:hover a {
+	color: orange;
 	opacity: 100%;
+}
+
+.stars a:hover {
+	color: orange;
+	opacity: 100%;
+}
+
+.stars a:hover ~ a {
+	color: orange;
+	opacity: 20%;
 }

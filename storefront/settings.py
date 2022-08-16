@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'recommends',
     'recommends.storages.djangoorm',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     #'oauth2_authentication',
 ]
 
