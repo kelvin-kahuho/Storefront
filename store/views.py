@@ -76,6 +76,7 @@ def product(request, product_id):
         cartItems = 0
 
     #Recommendations
+    #from .recommendations import 
     import random
     products = Product.objects.all()[:5]
     products = random.choices(products, k=4)[:3]
