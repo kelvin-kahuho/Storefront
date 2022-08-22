@@ -76,7 +76,9 @@ def product(request, product_id):
         cartItems = 0
 
     #Recommendations
-    #from .recommendations import 
+    from .recommendations import recommendation_registry, ProductRecommendationProvider
+    recommendation_registry.register(ProductRating, [Product], ProductRecommendationProvider)
+
     import random
     products = Product.objects.all()[:5]
     products = random.choices(products, k=4)[:3]
