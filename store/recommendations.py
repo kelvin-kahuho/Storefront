@@ -6,7 +6,7 @@ from .models import Product, ProductRating
 
 class ProductRecommendationProvider(RecommendationProvider):
     def get_users(self):
-        return User.objects.filter(is_active=True, votes__isnull=False).distinct()
+        return User.objects.filter(is_active=True, productrating__isnull=False).distinct()
 
     def get_items(self):
         return Product.objects.all()
