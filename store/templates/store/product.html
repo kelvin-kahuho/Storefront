@@ -1,7 +1,6 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-{% load recommends %}
 <h1><strong>{{product.name}}</strong></h1>
 <img src="{{product.imageURL}}" style = "position: left; width: 700px; height: 500px;">
 <div class="box-element product">
@@ -36,23 +35,6 @@
 
 <h4 style="text-align: center; color:rgb(0, 0, 0);">Recommendations</h4>
 <div class="row">
-  {% suggested as suggestions [limit 3] %}
-  {% for products in suggestions %}
-  <div class="col-lg-4">
-    <img class="thumbnail" src="{{product.imageURL}}">
-    <div class="box-element product">
-      <h6><strong>{{product.name}}</strong></h6>
-      <hr>
-
-      <button data-product="{{product.id}}"" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-      
-      <a class="btn btn-outline-success" href="{% url 'product' product.id %}">View</a>
-      <h4 style="display: inline-block; float:none"><strong>Ksh{{product.price| floatformat:2}}</strong></h4>
-      <br>
-    </div>
-  </div>
-  {% endfor %}
-
   {% for product in products %}
   <div class="col-lg-4">
     <img class="thumbnail" src="{{product.imageURL}}">

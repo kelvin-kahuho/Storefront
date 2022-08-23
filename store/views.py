@@ -23,7 +23,7 @@ def home(request):
         items = []
         order = {'get_cart_total': 0, 'get_cart_items': 0}
 
-    products = Product.objects.all()
+    products = Product.objects.all()[:6]
 
     if request.user.is_authenticated:
         cartItems = items.count()
@@ -75,18 +75,15 @@ def product(request, product_id):
     else:
         cartItems = 0
 
-    #Recommendations
-    from .recommendations import recommendation_registry, ProductRecommendationProvider
-    recommendation_registry.register(ProductRating, [Product], ProductRecommendationProvider)
-
     import random
-    products = Product.objects.all()[:5]
-    products = random.choices(products, k=4)[:3]
+    products = Product.objects.all()
+    products = random.choices(products, k=3)[:3]
 
     return render(request, 'store/product.html', {
         "products": products,
         "product": product,
         "cartItems": cartItems
+
     })
 
 
