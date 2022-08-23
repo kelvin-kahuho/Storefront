@@ -75,11 +75,21 @@ def product(request, product_id):
     else:
         cartItems = 0
 
+    
+    
+
+    from api.views import recommended_products
+
+    recommended_products = recommended_products
+
+
+
     import random
     products = Product.objects.all()
     products = random.choices(products, k=3)[:3]
 
     return render(request, 'store/product.html', {
+        "recommended_products": recommended_products,
         "products": products,
         "product": product,
         "cartItems": cartItems
