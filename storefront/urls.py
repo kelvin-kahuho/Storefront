@@ -28,7 +28,6 @@ urlpatterns = [
     #path('newyear/', include("newyear.urls")),
     #path('tasks/', include("tasks.urls")),
     path('', include("store.urls")),
-    path('recommendations/', include("api.urls")),
     #url(r'^oauth2/', include('oauth2_authentication.urls', namespace="oauth2")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
