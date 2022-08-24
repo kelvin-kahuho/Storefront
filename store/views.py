@@ -1,4 +1,5 @@
 from audioop import reverse
+from distutils.command.config import dump_file
 from random import random
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -18,7 +19,7 @@ from django.core import serializers
 from rest_framework.response import Response 
 from rest_framework import status 
 from rest_framework.parsers import JSONParser 
-from store.models import ProductRating, Product, Customer
+from .models import ProductRating, Product, Customer
 from .serializers import ProductRatingSerializers
 import pickle
 import numpy as np 
@@ -27,6 +28,23 @@ import pandas as pd
 from django.contrib import messages 
 
 # Create your views here.
+
+class Recommendations(viewsets.ModelViewSet): 
+        queryset = ProductRating.objects.all() 
+        serializer_class = ProductRatingSerializers
+
+def recommendations(df, product_id):
+    model=pickle.load(open("store/recommendation_system/model_pkl", 'rb'))
+    decompsed_matrix = model.fit_transform(df)
+    correlation_matrix = np.corrcoef(decompsed_matrix)
+    product_id = Product.objects.get(pk=product_id)
+    correlation_product = correlation_matrix[product_id]
+    recommended_products = df.index[correlation_product > 0.90]
+    recommended_products = recommended_products[0:10]
+    return recommended_products
+
+
+
 def home(request):
     
     if request.user.is_authenticated:
@@ -90,32 +108,12 @@ def product(request, product_id):
     else:
         cartItems = 0
 
-
-    class Recommendations(viewsets.ModelViewSet): 
-        queryset = ProductRating.objects.all() 
-        serializer_class = ProductRatingSerializers
-
-    df = pd.DataFrame(list(ProductRating.objects.all().values('user', 'product', 'rating')))
-
-    def recommendations(df):
-        try:
-            model=pickle.load(open("model_pkl", 'rb'))
-            decompsed_matrix = model.fit_transform(df)
-            correlation_matrix = np.corrcoef(decompsed_matrix)
-            product = df.index[product]
-            correlation_product = correlation_matrix[product]
-            recommended_products = df.index[correlation_product > 0.90]
-            recommended_product = recommended_products[0:10]
-            return recommended_products
-        except ValueError as e: 
-            return Response(e.args[0], status.HTTP_400_BAD_REQUEST) 
-
-
-
-
-    import random
-    products = Product.objects.all()
-    products = random.choices(products, k=3)[:3]
+    if request.user.is_authenticated:
+        df = pd.DataFrame(list(ProductRating.objects.all().values('user', 'product', 'rating')))
+        recommended_products = recommendations(df, product_id)
+    else:
+        products = Product.objects.all()
+        products = random.choices(products, k=3)[:3]
 
     return render(request, 'store/product.html', {
         "recommended_products": recommended_products,
