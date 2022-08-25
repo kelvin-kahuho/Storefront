@@ -1,6 +1,6 @@
 from audioop import reverse
 from distutils.command.config import dump_file
-from random import random
+from random import Random, random
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
@@ -108,23 +108,22 @@ def product(request, product_id):
         cartItems = items.count()
     else:
         cartItems = 0
-    
-    products = Product.objects.all()
-
+    '''
     if request.user.is_authenticated:
         df = pd.DataFrame(list(ProductRating.objects.all().values('user', 'product', 'rating')))
-        recommended_products = recommendations(df, product_id)
+        recommended_products = recommendations(df, product_id )
         
     else:
         recommended_products = Product.objects.all()[:3]
-
-
+    '''
+    import random
+    products = Product.objects.all()
+    products = random.choices(products, k=3)
+        
     return render(request, 'store/product.html', {
-        "products": products,
         "product": product,
+        "products": products,
         "cartItems": cartItems,
-        "recommended_products": recommended_products,
-
     })
 
 def cart(request):
