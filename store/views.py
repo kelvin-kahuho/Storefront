@@ -141,8 +141,12 @@ def cart(request):
         cartItems = items.count()
     else:
         cartItems = 0
+
+    import random
+    products = Product.objects.all()
+    products = random.choices(products, k=3)
         
-    context = {'items': items, 'order': order, "cartItems": cartItems}
+    context = {'items': items, 'order': order, "cartItems": cartItems, "products": products}
     return render(request, 'store/cart.html', context)
 
 
