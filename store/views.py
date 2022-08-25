@@ -26,6 +26,7 @@ import numpy as np
 from sklearn import preprocessing 
 import pandas as pd 
 from django.contrib import messages 
+from django.template import loader, Context
 
 # Create your views here.
 
@@ -39,7 +40,7 @@ def recommendations(df, product_id):
     correlation_matrix = np.corrcoef(decompsed_matrix)
     correlation_productid = correlation_matrix[product_id]
     recommended_products = df.index[correlation_productid > 0.90]
-    recommended_products = list(recommended_products[0:10])
+    recommended_products = list(recommended_products[:3])
     return recommended_products
 
 
@@ -110,19 +111,35 @@ def product(request, product_id):
     
     products = Product.objects.all()
 
+    '''
     if request.user.is_authenticated:
         df = pd.DataFrame(list(ProductRating.objects.all().values('user', 'product', 'rating')))
-        recommended_products = recommendations(df, product_id)[:3]
+        recommended_products = recommendations(df, product_id)
+        
     else:
-        products[:3]
+        recommended_products = Product.objects.all()
+    '''
+
+    return render(request, 'store/product.html', {
+        "products": products,
+        "product": product,
+        "cartItems": cartItems,
+
+    })
+
+def recommendations(request):
+    if request.user.is_authenticated:
+        product_id = Product.objects.get(pk=product_id)
+        df = pd.DataFrame(list(ProductRating.objects.all().values('user', 'product', 'rating')))
+        recommended_products = recommendations(df, product_id)
+        
+    else:
+        recommended_products = Product.objects.all()[:3]
 
     return render(request, 'store/product.html', {
         "recommended_products": recommended_products,
-        "products": products,
-        "product": product,
-        "cartItems": cartItems
-
     })
+
 
 
 def cart(request):
