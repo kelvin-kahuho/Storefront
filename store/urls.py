@@ -22,7 +22,6 @@ urlpatterns = [
   path("update_item/", views.updateItem, name="update_item"),
   path("dashboard/", views.dashboard, name="dashboard"),
   path("product_rating/", views.product_rating, name="rating"),
-  path("recommendations", views.recommendations, name="recommendations"),
   path("send_data/", views.send_data, name="data"),
   path("signup/", views.signupUser, name="signup"),
   path("login/", views.loginUser, name="login"),

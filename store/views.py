@@ -111,36 +111,21 @@ def product(request, product_id):
     
     products = Product.objects.all()
 
-    '''
     if request.user.is_authenticated:
-        df = pd.DataFrame(list(ProductRating.objects.all().values('user', 'product', 'rating')))
-        recommended_products = recommendations(df, product_id)
-        
-    else:
-        recommended_products = Product.objects.all()
-    '''
-
-    return render(request, 'store/product.html', {
-        "products": products,
-        "product": product,
-        "cartItems": cartItems,
-
-    })
-
-def recommendations(request):
-    if request.user.is_authenticated:
-        product_id = Product.objects.get(pk=product_id)
         df = pd.DataFrame(list(ProductRating.objects.all().values('user', 'product', 'rating')))
         recommended_products = recommendations(df, product_id)
         
     else:
         recommended_products = Product.objects.all()[:3]
 
+
     return render(request, 'store/product.html', {
+        "products": products,
+        "product": product,
+        "cartItems": cartItems,
         "recommended_products": recommended_products,
+
     })
-
-
 
 def cart(request):
     if request.user.is_authenticated:
