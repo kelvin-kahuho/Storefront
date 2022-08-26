@@ -29,22 +29,6 @@ from django.contrib import messages
 from django.template import loader, Context
 
 # Create your views here.
-
-class Recommendations(viewsets.ModelViewSet): 
-        queryset = ProductRating.objects.all() 
-        serializer_class = ProductRatingSerializers
-
-def recommendations(df, product_id):
-    model=pickle.load(open("store/recommendation_system/model_pkl", 'rb'))
-    decompsed_matrix = model.fit_transform(df)
-    correlation_matrix = np.corrcoef(decompsed_matrix)
-    correlation_productid = correlation_matrix[product_id]
-    recommended_products = df.index[correlation_productid > 0.90]
-    recommended_products = list(recommended_products[:3])
-    return recommended_products
-
-
-
 def home(request):
     
     if request.user.is_authenticated:
@@ -108,19 +92,26 @@ def product(request, product_id):
         cartItems = items.count()
     else:
         cartItems = 0
-    '''
+
+    import random
+    products = Product.objects.all()
+    products = random.choices(products, k=3)
+
+    
+    #Calling the recommendations method
+    from store.recommendations import recommendations
+    import random
+    
     if request.user.is_authenticated:
         df = pd.DataFrame(list(ProductRating.objects.all().values('user', 'product', 'rating')))
         recommended_products = recommendations(df, product_id )
         
     else:
-        recommended_products = Product.objects.all()[:3]
-    '''
-    import random
-    products = Product.objects.all()
-    products = random.choices(products, k=3)
-        
+        recommended_products = Product.objects.all()
+        recommended_products = random.choices(recommended_products, k=3)
+    
     return render(request, 'store/product.html', {
+        "recommended_products": recommended_products,
         "product": product,
         "products": products,
         "cartItems": cartItems,
