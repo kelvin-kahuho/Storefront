@@ -42,16 +42,18 @@ class Product(models.Model):
 		except:
 			url = ''
 		return url
+
+		'''
 	
 	def averagerating(self):
 			rating = ProductRating.objects.filter(product=self).aggregate(avarage=Avg('rate'))
-			avg=0
-			if review["avarage"] is not None:
-					avg=float(review["avarage"])
+			Avg=0
+			if rating["avarage"] is not None:
+					avg=float(rating["avarage"])
 			return avg
 
-	def countreview(self):
-			reviews = ProductRating.objects.filter(product=self).aggregate(count=Count('id'))
+	def countrating(self):
+			reviews = ProductRating.objects.filter(product=self).aggregate(count=count('id'))
 			cnt=0
 			if reviews["count"] is not None:
 					cnt = int(reviews["count"])
@@ -59,6 +61,7 @@ class Product(models.Model):
 
 	def __str__(self):
 			return str(self.id)
+			'''
 
 
   
