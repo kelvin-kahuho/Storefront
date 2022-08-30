@@ -3,6 +3,7 @@ from time import timezone
 from django.db.models.deletion import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
+import math
 
 
 
@@ -41,6 +42,24 @@ class Product(models.Model):
 		except:
 			url = ''
 		return url
+	
+	def averagereview(self):
+			review = ProductRating.objects.filter(product=self).aggregate(avarage=Avg('rate'))
+			avg=0
+			if review["avarage"] is not None:
+					avg=float(review["avarage"])
+			return avg
+
+	def countreview(self):
+			reviews = ProductRating.objects.filter(product=self).aggregate(count=Count('id'))
+			cnt=0
+			if reviews["count"] is not None:
+					cnt = int(reviews["count"])
+			return cnt
+
+	def __str__(self):
+			return str(self.id)
+
 
   
 class Order(models.Model):

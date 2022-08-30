@@ -17,11 +17,11 @@
 <br>
 <h4>Rate this Product</h4>
 <div class="stars">
-  <a data-product={{product.id}} data-value=1 class="fa fa-star rating"></a>
-  <a data-product={{product.id}} data-value=2 class="fa fa-star rating"></a>
-  <a data-product={{product.id}} data-value=3 class="fa fa-star rating"></a>
-  <a data-product={{product.id}} data-value=4 class="fa fa-star rating"></a>
-  <a data-product={{product.id}} data-value=5 class="fa fa-star rating"></a>
+  <a data-product={{product.id}} data-value=1 class="fa fa-star rating {% if product_detail.averagereview > 0 %} checked {% endif %}"></a>
+  <a data-product={{product.id}} data-value=2 class="fa fa-star rating {% if product_detail.averagereview > 1 %} checked {% endif %}"></a>
+  <a data-product={{product.id}} data-value=3 class="fa fa-star rating {% if product_detail.averagereview > 2 %} checked {% endif %}"></a>
+  <a data-product={{product.id}} data-value=4 class="fa fa-star rating {% if product_detail.averagereview > 3 %} checked {% endif %}"></a>
+  <a data-product={{product.id}} data-value=5 class="fa fa-star rating {% if product_detail.averagereview > 4 %} checked {% endif %}"></a>
 </div>
 <br>
 <h4>Comment</h4>

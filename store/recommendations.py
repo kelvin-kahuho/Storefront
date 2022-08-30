@@ -9,6 +9,7 @@ from .serializers import ProductRatingSerializers
 import pickle
 from sklearn import preprocessing 
 import pandas as pd 
+import numpy as np
 
 class Recommendations(viewsets.ModelViewSet): 
         queryset = ProductRating.objects.all() 

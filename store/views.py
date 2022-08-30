@@ -93,10 +93,13 @@ def product(request, product_id):
     else:
         cartItems = 0
 
+    #product avarage ratong
+    #review = Review.objects.filter(product = )
+
     import random
     products = Product.objects.all()
     products = random.choices(products, k=3)
-
+    '''
     
     #Calling the recommendations method
     from store.recommendations import recommendations
@@ -109,9 +112,9 @@ def product(request, product_id):
     else:
         recommended_products = Product.objects.all()
         recommended_products = random.choices(recommended_products, k=3)
-    
+    '''
     return render(request, 'store/product.html', {
-        "recommended_products": recommended_products,
+        #"recommended_products": recommended_products,
         "product": product,
         "products": products,
         "cartItems": cartItems,
