@@ -43,8 +43,8 @@ class Product(models.Model):
 			url = ''
 		return url
 	
-	def averagereview(self):
-			review = ProductRating.objects.filter(product=self).aggregate(avarage=Avg('rate'))
+	def averagerating(self):
+			rating = ProductRating.objects.filter(product=self).aggregate(avarage=Avg('rate'))
 			avg=0
 			if review["avarage"] is not None:
 					avg=float(review["avarage"])
