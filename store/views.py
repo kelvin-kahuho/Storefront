@@ -1,4 +1,4 @@
-from audioop import reverse
+from audioop import avg, reverse
 from distutils.command.config import dump_file
 from random import Random, random
 from django.shortcuts import render, redirect
@@ -93,15 +93,15 @@ def product(request, product_id):
     else:
         cartItems = 0
 
-    #product avarage ratong
-    #review = Review.objects.filter(product = )
+    #product avarage rating
+    average_rating = ProductRating.objects.filter(product = product)
 
     import random
     products = Product.objects.all()
     products = random.choices(products, k=3)
-    '''
     
     #Calling the recommendations method
+    '''
     from store.recommendations import recommendations
     import random
     
@@ -113,8 +113,10 @@ def product(request, product_id):
         recommended_products = Product.objects.all()
         recommended_products = random.choices(recommended_products, k=3)
     '''
+
+
     return render(request, 'store/product.html', {
-        #"recommended_products": recommended_products,
+        "average_rating": average_rating,
         "product": product,
         "products": products,
         "cartItems": cartItems,

@@ -4,6 +4,7 @@ from django.db.models.deletion import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
 import math
+from numpy import average, count_nonzero
 
 
 
@@ -43,25 +44,23 @@ class Product(models.Model):
 			url = ''
 		return url
 
-		'''
-	
+	@property
 	def averagerating(self):
-			rating = ProductRating.objects.filter(product=self).aggregate(avarage=Avg('rate'))
-			Avg=0
-			if rating["avarage"] is not None:
-					avg=float(rating["avarage"])
+			rating = ProductRating.objects.filter(product=self).aggregate(avarage=average('rating'))
+			avg=0
+			if rating["average"] is not None:
+					avg=float(rating["average"])
 			return avg
-
+	@property
 	def countrating(self):
-			reviews = ProductRating.objects.filter(product=self).aggregate(count=count('id'))
+			ratings = ProductRating.objects.filter(product=self).aggregate(count=count_nonzero('product_id'))
 			cnt=0
-			if reviews["count"] is not None:
-					cnt = int(reviews["count"])
+			if ratings["count"] is not None:
+					cnt = int(ratings["count"])
 			return cnt
 
 	def __str__(self):
 			return str(self.id)
-			'''
 
 
   
