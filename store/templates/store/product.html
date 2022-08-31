@@ -17,15 +17,13 @@
 <br>
 <h4>Rate this Product</h4>
 <div class="stars">
-  <a data-product={{product.id}} data-value=1 class="fa fa-star rating {% if product.averagerating > 0 %} checked {% endif %}"></a>
-  <a data-product={{product.id}} data-value=2 class="fa fa-star rating {% if product.averagerating > 1 %} checked {% endif %}"></a>
-  <a data-product={{product.id}} data-value=3 class="fa fa-star rating {% if product.averagerating > 2 %} checked {% endif %}"></a>
-  <a data-product={{product.id}} data-value=4 class="fa fa-star rating {% if product.averagerating > 3 %} checked {% endif %}"></a>
-  <a data-product={{product.id}} data-value=5 class="fa fa-star rating {% if product.averagerating > 4 %} checked {% endif %}"></a>
-
-
-  <p>Average rating : {{product.averagerating}}. Rated {{product.countrating}}</p>
+  <a data-product={{product.id}} data-value=1 class="fa fa-star rating {% if averagerating > 0 %} checked {% endif %}"></a>
+  <a data-product={{product.id}} data-value=2 class="fa fa-star rating {% if averagerating > 1 %} checked {% endif %}"></a>
+  <a data-product={{product.id}} data-value=3 class="fa fa-star rating {% if averagerating > 2 %} checked {% endif %}"></a>
+  <a data-product={{product.id}} data-value=4 class="fa fa-star rating {% if averagerating > 3 %} checked {% endif %}"></a>
+  <a data-product={{product.id}} data-value=5 class="fa fa-star rating {% if averagerating > 4 %} checked {% endif %}"></a>
 </div>
+<h6>Avarage Rating: {{product.averagerating}}</h6><h6>Rated times: {{product.countrating}}</h6>
 <br>
 <h4>Comment</h4>
 <form action="">

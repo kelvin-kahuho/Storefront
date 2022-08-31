@@ -104,11 +104,6 @@ h1,h2,h3,h4,h5,h6{
 	display: none!important;
 }
 
-.checked {
-  color: orange;
-	size: 100px;
-	
-}
 .stars {
 	display: flex;
 }
@@ -121,16 +116,22 @@ h1,h2,h3,h4,h5,h6{
 }
 .stars:hover a {
 	color: orange;
-	opacity: 100%;
+	opacity: 80%;
 }
 
 .stars a:hover {
 	color: orange;
-	opacity: 100%;
+	opacity: 80%;
 }
 
 .stars a:hover ~ a {
 	color: orange;
 	opacity: 20%;
 }
+
+.checked a {
+  color: orange;
+	size: 100px;	
+}
+
 

@@ -93,8 +93,9 @@ def product(request, product_id):
     else:
         cartItems = 0
 
-    #product avarage rating
-    average_rating = ProductRating.objects.filter(product = product)
+    rating = ProductRating.objects.filter(product=product_id).aggregate(Average =Avg('rating'))
+    average_rating = rating["Average"]
+    average_rating = "{0:.1f}".format(average_rating)
 
     import random
     products = Product.objects.all()
@@ -116,7 +117,7 @@ def product(request, product_id):
 
 
     return render(request, 'store/product.html', {
-        "average_rating": average_rating,
+        "averagerating":average_rating,
         "product": product,
         "products": products,
         "cartItems": cartItems,

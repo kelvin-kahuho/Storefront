@@ -5,6 +5,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import math
 from numpy import average, count_nonzero
+import pandas as pd
+from django.db.models import Avg, Count
 
 
 
@@ -46,18 +48,18 @@ class Product(models.Model):
 
 	@property
 	def averagerating(self):
-			rating = ProductRating.objects.filter(product=self).aggregate(avarage=average('rating'))
-			avg=0
-			if rating["average"] is not None:
-					avg=float(rating["average"])
-			return avg
+			rating = ProductRating.objects.filter(product=self).aggregate(Average =Avg('rating'))
+			average_rating = rating["Average"]
+			average_rating = "{0:.1f}".format(average_rating)
+			return average_rating
+	
 	@property
 	def countrating(self):
-			ratings = ProductRating.objects.filter(product=self).aggregate(count=count_nonzero('product_id'))
-			cnt=0
-			if ratings["count"] is not None:
-					cnt = int(ratings["count"])
+			count = ProductRating.objects.filter(product=self).aggregate( Users =Count('product_id'))
+			cnt = count["Users"]
 			return cnt
+	
+
 
 	def __str__(self):
 			return str(self.id)
