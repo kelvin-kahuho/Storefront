@@ -50,7 +50,7 @@ class Product(models.Model):
 	def averagerating(self):
 			rating = ProductRating.objects.filter(product=self).aggregate(Average =Avg('rating'))
 			average_rating = rating["Average"]
-			average_rating = "{0:.1f}".format(average_rating)
+			#average_rating = "{0:.1f}".format(average_rating)
 			return average_rating
 	
 	@property
