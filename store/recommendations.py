@@ -1,7 +1,6 @@
 from distutils.command.config import dump_file
 from django.core import serializers
 from statistics import correlation
-from rest_framework import viewsets 
 from rest_framework.decorators import api_view 
 from django.core import serializers 
 from .models import ProductRating, Product, Customer
@@ -23,3 +22,4 @@ def recommendations(df, product_id):
     recommended_products = df.index[correlation_productid > 0.90]
     recommended_products = list(recommended_products[:3])
     return recommended_products
+
