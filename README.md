@@ -1,3 +1,5 @@
+Welcome to my ecommerce web application built using Django!
+
 This project is a fully functional ecommerce website that allows users to browse products, add them to their cart, and complete a purchase. But that's not all - this web app has an added twist. It also incorporates a machine learning model to provide product recommendations to users based on their purchase history and browsing behavior.
 
 To get started with the app, users can create an account and log in. From there, they can browse the various product categories and add items to their cart. The checkout process is straightforward and easy to navigate.
